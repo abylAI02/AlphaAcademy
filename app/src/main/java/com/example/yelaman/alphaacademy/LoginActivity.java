@@ -1,9 +1,11 @@
 package com.example.yelaman.alphaacademy;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -14,7 +16,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -29,18 +30,43 @@ public class LoginActivity extends AppCompatActivity {
     private Button mLoginButton;
     private Button mRegisterButton;
 
+    private TextWatcher mTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            String stringEmail = mLoginField.getText().toString().trim();
+            String stringPassword = mPasswordField.getText().toString().trim();
+            mLoginButton.setEnabled(!stringEmail.isEmpty() && !stringPassword.isEmpty());
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        setTitle("Sign In");
+
         mAuth = FirebaseAuth.getInstance();
 
         mLoginField = findViewById(R.id.login_field);
         mPasswordField = findViewById(R.id.password_field);
-
         mLoginButton = findViewById(R.id.login_button);
         mRegisterButton = findViewById(R.id.register_button);
+
+        mLoginButton.setEnabled(false);
+        mLoginField.addTextChangedListener(mTextWatcher);
+        mPasswordField.addTextChangedListener(mTextWatcher);
+
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override

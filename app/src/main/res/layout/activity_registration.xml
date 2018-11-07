@@ -6,11 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/sign_up" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="vertical"
@@ -24,12 +19,11 @@
             android:text="@string/first_name"/>
 
         <EditText
+            android:id="@+id/first_name_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/first_name_field"
-            android:textAlignment="center"
             android:hint="@string/name"
-            />
+            android:textAlignment="center" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -75,10 +69,10 @@
             />
 
         <Button
+            android:id="@+id/login_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/login_button"
-            android:id="@+id/login_button"/>
+            android:text="Sign up" />
 
     </LinearLayout>
 

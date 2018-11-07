@@ -21,21 +21,21 @@ public class MainActivity extends AppCompatActivity {
                     setTitle("Test");
                     TestFragment testFragment = new TestFragment();
                     android.support.v4.app.FragmentTransaction testFragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    testFragmentTransaction.replace(R.id.frame,testFragment , "ChatFragment");
+                    testFragmentTransaction.replace(R.id.frame, testFragment, "ChatFragment");
                     testFragmentTransaction.commit();
                     return true;
                 case R.id.navigation_news:
                     setTitle("News");
                     NewsFragment newsFragment = new NewsFragment();
                     android.support.v4.app.FragmentTransaction newsFragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    newsFragmentTransaction.replace(R.id.frame,newsFragment , "ChatFragment");
+                    newsFragmentTransaction.replace(R.id.frame, newsFragment, "ChatFragment");
                     newsFragmentTransaction.commit();
                     return true;
                 case R.id.navigation_user:
                     setTitle("My Account");
                     UserFragment userFragment = new UserFragment();
                     android.support.v4.app.FragmentTransaction userFragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    userFragmentTransaction.replace(R.id.frame,userFragment , "ChatFragment");
+                    userFragmentTransaction.replace(R.id.frame, userFragment, "ChatFragment");
                     userFragmentTransaction.commit();
                     return true;
             }
@@ -49,13 +49,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         setTitle("Test");
         TestFragment testFragment = new TestFragment();
         android.support.v4.app.FragmentTransaction testFragmentTransaction = getSupportFragmentManager().beginTransaction();
-        testFragmentTransaction.replace(R.id.frame,testFragment , "ChatFragment");
+        testFragmentTransaction.replace(R.id.frame, testFragment, "ChatFragment");
         testFragmentTransaction.commit();
     }
 
