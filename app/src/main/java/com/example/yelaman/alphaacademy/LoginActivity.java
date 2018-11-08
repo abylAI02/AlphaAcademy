@@ -1,16 +1,21 @@
 package com.example.yelaman.alphaacademy;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -29,6 +34,10 @@ public class LoginActivity extends AppCompatActivity {
 
     private Button mLoginButton;
     private Button mRegisterButton;
+
+    private TextView mEmailText;
+    private TextView mPasswordText;
+
 
     private TextWatcher mTextWatcher = new TextWatcher() {
         @Override
@@ -62,10 +71,26 @@ public class LoginActivity extends AppCompatActivity {
         mPasswordField = findViewById(R.id.password_field);
         mLoginButton = findViewById(R.id.login_button);
         mRegisterButton = findViewById(R.id.register_button);
+        mEmailText = findViewById(R.id.email_text);
+        mPasswordText = findViewById(R.id.password_text);
 
         mLoginButton.setEnabled(false);
         mLoginField.addTextChangedListener(mTextWatcher);
         mPasswordField.addTextChangedListener(mTextWatcher);
+
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowCustomEnabled(true);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+            LayoutInflater inflator = LayoutInflater.from(this);
+            View v = inflator.inflate(R.layout.titleview, null);
+
+            ((TextView) v.findViewById(R.id.title)).setText(this.getTitle());
+            ((TextView) v.findViewById(R.id.title)).setTextSize(20);
+
+
+            this.getSupportActionBar().setCustomView(v);
+        }
 
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -92,13 +117,17 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    public void setActivity() {
+        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+    }
+
     private void signIn(String email, String password) {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-
+                            setActivity();
                             Log.d(TAG, "signInWithEmail:success");
                         } else {
                             Log.w(TAG, "signInWithEmail:failure", task.getException());

@@ -21,4 +21,6 @@
     <string name="name">name</string>
     <string name="family_name">Family name</string>
     <string name="family_name_hint">family name</string>
+    <string name="didn_t_registered_yet">Didn\'t registered yet?</string>
+    <string name="forget_password">Forget password?</string>
 </resources>
