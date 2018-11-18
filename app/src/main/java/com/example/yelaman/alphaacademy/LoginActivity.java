@@ -1,12 +1,12 @@
 package com.example.yelaman.alphaacademy;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,7 +15,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -35,8 +34,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button mLoginButton;
     private Button mRegisterButton;
 
-    private TextView mEmailText;
-    private TextView mPasswordText;
+
 
 
     private TextWatcher mTextWatcher = new TextWatcher() {
@@ -44,12 +42,29 @@ public class LoginActivity extends AppCompatActivity {
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             String stringEmail = mLoginField.getText().toString().trim();
             String stringPassword = mPasswordField.getText().toString().trim();
+
+            stringEmail = stringEmail.replaceAll("\\s+", "");
+            stringPassword = stringPassword.replaceAll("\\s+", "");
+
             mLoginButton.setEnabled(!stringEmail.isEmpty() && !stringPassword.isEmpty());
         }
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
+            InputFilter filter = new InputFilter() {
+                public CharSequence filter(CharSequence source, int start, int end,
+                                           Spanned dest, int dstart, int dend) {
+                    for (int i = start; i < end; i++) {
+                        if (Character.isWhitespace(source.charAt(i))) {
+                            return "";
+                        }
+                    }
+                    return null;
+                }
 
+            };
+            mLoginField.setFilters(new InputFilter[] { filter });
+            mPasswordField.setFilters(new InputFilter[] { filter });
         }
 
         @Override
@@ -71,8 +86,7 @@ public class LoginActivity extends AppCompatActivity {
         mPasswordField = findViewById(R.id.password_field);
         mLoginButton = findViewById(R.id.login_button);
         mRegisterButton = findViewById(R.id.register_button);
-        mEmailText = findViewById(R.id.email_text);
-        mPasswordText = findViewById(R.id.password_text);
+
 
         mLoginButton.setEnabled(false);
         mLoginField.addTextChangedListener(mTextWatcher);

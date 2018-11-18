@@ -66,7 +66,7 @@ public class RegistrationActivity extends AppCompatActivity {
         mNameField = findViewById(R.id.first_name_field);
         mSurnameField = findViewById(R.id.family_name_field);
 
-        mRegisterButton = findViewById(R.id.login_button);
+        mRegisterButton = findViewById(R.id.register_button);
 
         mRegisterButton.setEnabled(false);
 
