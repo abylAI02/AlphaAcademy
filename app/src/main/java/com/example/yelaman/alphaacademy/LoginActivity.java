@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -38,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private Button mLoginButton;
     private Button mRegisterButton;
+    private Button mForgotPasswordButton;
 
     private ProgressBar progressBar;
 
@@ -87,6 +89,7 @@ public class LoginActivity extends AppCompatActivity {
         mPasswordField = findViewById(R.id.password_field);
         mLoginButton = findViewById(R.id.login_button);
         mRegisterButton = findViewById(R.id.register_button);
+        mForgotPasswordButton = findViewById(R.id.forget_button);
 
         progressBar = findViewById(R.id.progressBar);
 
@@ -125,6 +128,8 @@ public class LoginActivity extends AppCompatActivity {
                 mRegisterButton.setVisibility(View.INVISIBLE);
                 mPasswordField.setVisibility(View.INVISIBLE);
                 mLoginButton.setVisibility(View.INVISIBLE);
+                mForgotPasswordButton.setVisibility(View.INVISIBLE);
+
                 progressBar.setVisibility(ProgressBar.VISIBLE);
                 signIn(mLoginField.getText().toString(), mPasswordField.getText().toString());
             }
@@ -151,6 +156,22 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             setActivity();
                             Log.d(TAG, "signInWithEmail:success");
+                            new CountDownTimer(300, 1000) {
+                                @Override
+                                public void onTick(long millisUntilFinished) {
+
+                                }
+
+                                @Override
+                                public void onFinish() {
+                                    mLoginField.setVisibility(View.VISIBLE);
+                                    mRegisterButton.setVisibility(View.VISIBLE);
+                                    mPasswordField.setVisibility(View.VISIBLE);
+                                    mLoginButton.setVisibility(View.VISIBLE);
+                                    progressBar.setVisibility(ProgressBar.INVISIBLE);
+                                }
+                            }.start();
+
                         } else {
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
@@ -159,6 +180,7 @@ public class LoginActivity extends AppCompatActivity {
                             mRegisterButton.setVisibility(View.VISIBLE);
                             mPasswordField.setVisibility(View.VISIBLE);
                             mLoginButton.setVisibility(View.VISIBLE);
+                            mForgotPasswordButton.setVisibility(View.VISIBLE);
                             progressBar.setVisibility(ProgressBar.INVISIBLE);
                         }
                     }
