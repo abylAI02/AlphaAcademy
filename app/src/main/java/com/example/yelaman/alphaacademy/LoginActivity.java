@@ -44,9 +44,6 @@ public class LoginActivity extends AppCompatActivity {
             String stringEmail = mLoginField.getText().toString().trim();
             String stringPassword = mPasswordField.getText().toString().trim();
 
-            stringEmail = stringEmail.replaceAll("\\s+", "");
-            stringPassword = stringPassword.replaceAll("\\s+", "");
-
             mLoginButton.setEnabled(!stringEmail.isEmpty() && !stringPassword.isEmpty());
         }
 
