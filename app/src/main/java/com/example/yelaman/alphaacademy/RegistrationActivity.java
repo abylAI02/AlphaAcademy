@@ -88,6 +88,7 @@ public class RegistrationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 createAccount(mLoginField.getText().toString(), mPasswordField.getText().toString());
+                finish();
             }
         });
     }
