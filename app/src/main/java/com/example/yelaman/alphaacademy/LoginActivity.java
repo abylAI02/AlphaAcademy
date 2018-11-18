@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +38,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private Button mLoginButton;
     private Button mRegisterButton;
+
+    private ProgressBar progressBar;
 
     private TextWatcher mTextWatcher = new TextWatcher() {
         @Override
@@ -85,6 +88,7 @@ public class LoginActivity extends AppCompatActivity {
         mLoginButton = findViewById(R.id.login_button);
         mRegisterButton = findViewById(R.id.register_button);
 
+        progressBar = findViewById(R.id.progressBar);
 
         mLoginButton.setEnabled(false);
         mLoginField.addTextChangedListener(mTextWatcher);
@@ -117,6 +121,11 @@ public class LoginActivity extends AppCompatActivity {
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mLoginField.setVisibility(View.INVISIBLE);
+                mRegisterButton.setVisibility(View.INVISIBLE);
+                mPasswordField.setVisibility(View.INVISIBLE);
+                mLoginButton.setVisibility(View.INVISIBLE);
+                progressBar.setVisibility(ProgressBar.VISIBLE);
                 signIn(mLoginField.getText().toString(), mPasswordField.getText().toString());
             }
         });
@@ -146,6 +155,11 @@ public class LoginActivity extends AppCompatActivity {
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
+                            mLoginField.setVisibility(View.VISIBLE);
+                            mRegisterButton.setVisibility(View.VISIBLE);
+                            mPasswordField.setVisibility(View.VISIBLE);
+                            mLoginButton.setVisibility(View.VISIBLE);
+                            progressBar.setVisibility(ProgressBar.INVISIBLE);
                         }
                     }
                 });
