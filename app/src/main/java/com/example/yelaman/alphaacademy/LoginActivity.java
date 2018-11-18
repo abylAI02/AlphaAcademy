@@ -1,24 +1,21 @@
 package com.example.yelaman.alphaacademy;
 
-import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.Spanned;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -37,7 +34,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private Button mLoginButton;
     private Button mRegisterButton;
-
 
     private TextWatcher mTextWatcher = new TextWatcher() {
         @Override
@@ -65,8 +61,8 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
             };
-            mLoginField.setFilters(new InputFilter[] { filter });
-            mPasswordField.setFilters(new InputFilter[] { filter });
+            mLoginField.setFilters(new InputFilter[]{filter});
+            mPasswordField.setFilters(new InputFilter[]{filter});
         }
 
         @Override
@@ -78,6 +74,11 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+
+        builder.setMessage(R.string.dialog_message)
+                .setTitle(R.string.dialog_title);
 
         final MediaPlayer mediaPlayer = MediaPlayer.create(LoginActivity.this, R.raw.mymusic);
         mediaPlayer.start();
@@ -125,6 +126,7 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(new Intent(LoginActivity.this, MainActivity.class));
     }
 
+
     private void signIn(String email, String password) {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -144,4 +146,5 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
     }
+
 }
