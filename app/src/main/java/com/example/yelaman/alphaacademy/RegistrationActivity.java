@@ -92,6 +92,8 @@ public class RegistrationActivity extends AppCompatActivity {
         });
     }
 
+
+
     private void createAccount(String email, String password) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -112,5 +114,4 @@ public class RegistrationActivity extends AppCompatActivity {
                     }
                 });
     }
-
 }
