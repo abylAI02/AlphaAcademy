@@ -97,8 +97,8 @@ public class LoginActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowCustomEnabled(true);
             getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-            LayoutInflater inflator = LayoutInflater.from(this);
-            View v = inflator.inflate(R.layout.titleview, null);
+            LayoutInflater inflater = LayoutInflater.from(this);
+            View v = inflater.inflate(R.layout.titleview, null);
 
             ((TextView) v.findViewById(R.id.title)).setText(this.getTitle());
             ((TextView) v.findViewById(R.id.title)).setTextSize(20);
@@ -149,10 +149,7 @@ public class LoginActivity extends AppCompatActivity {
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-
                         }
-
-
                     }
                 });
     }

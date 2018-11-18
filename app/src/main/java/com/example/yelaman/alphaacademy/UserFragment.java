@@ -16,8 +16,8 @@ import android.view.ViewGroup;
  */
 public class UserFragment extends Fragment {
 
-    private CardView accountinformation;
-    private CardView settings;
+    private CardView accountInformation;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -30,11 +30,11 @@ public class UserFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        accountinformation = view.findViewById(R.id.cardAccount);
+        accountInformation = view.findViewById(R.id.cardAccount);
 
-        settings = view.findViewById(R.id.settings);
 
-        settings.setOnClickListener(new View.OnClickListener() {
+
+        accountInformation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
