@@ -38,8 +38,15 @@ public class UserFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
+                Fragment fragment = new SettingsFragment();
+
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.frame, fragment)
+                        .commit();
             }
         });
 
     }
+
 }
