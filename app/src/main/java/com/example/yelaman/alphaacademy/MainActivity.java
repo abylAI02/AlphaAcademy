@@ -1,12 +1,19 @@
 package com.example.yelaman.alphaacademy;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+
 import android.support.v4.app.Fragment;
+
+import android.support.v7.app.AlertDialog;
+
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -56,6 +63,26 @@ public class MainActivity extends AppCompatActivity {
         setTitle("Test");
         TestFragment testFragment = new TestFragment();
         loadFragment(testFragment);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        new AlertDialog.Builder(this)
+                .setMessage(R.string.dialog_fire_missiles)
+                .setPositiveButton(R.string.fire, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        FirebaseAuth.getInstance().signOut();
+                    }
+                })
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                    }
+                })
+                .create()
+                .show();
     }
 
 }

@@ -1,8 +1,12 @@
 package com.example.yelaman.alphaacademy;
 
 import android.content.Intent;
+import android.content.DialogInterface;
+import android.content.Intent;
+
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.InputFilter;
@@ -34,9 +38,6 @@ public class LoginActivity extends AppCompatActivity {
     private Button mLoginButton;
     private Button mRegisterButton;
 
-
-
-
     private TextWatcher mTextWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -63,8 +64,8 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
             };
-            mLoginField.setFilters(new InputFilter[] { filter });
-            mPasswordField.setFilters(new InputFilter[] { filter });
+            mLoginField.setFilters(new InputFilter[]{filter});
+            mPasswordField.setFilters(new InputFilter[]{filter});
         }
 
         @Override
@@ -77,7 +78,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+      
         setTitle("Sign In");
 
         mAuth = FirebaseAuth.getInstance();
@@ -135,6 +136,7 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(new Intent(LoginActivity.this, MainActivity.class));
     }
 
+
     private void signIn(String email, String password) {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -154,4 +156,5 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
     }
+
 }
