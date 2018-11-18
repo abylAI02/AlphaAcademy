@@ -156,7 +156,7 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             setActivity();
                             Log.d(TAG, "signInWithEmail:success");
-                            new CountDownTimer(1000, 1000) {
+                            new CountDownTimer(300, 1000) {
                                 @Override
                                 public void onTick(long millisUntilFinished) {
 
