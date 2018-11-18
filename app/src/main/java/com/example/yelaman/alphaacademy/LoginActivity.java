@@ -3,10 +3,13 @@ package com.example.yelaman.alphaacademy;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -35,26 +38,39 @@ public class LoginActivity extends AppCompatActivity {
     private Button mLoginButton;
     private Button mRegisterButton;
 
-    private TextView mEmailText;
-    private TextView mPasswordText;
-
 
     private TextWatcher mTextWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             String stringEmail = mLoginField.getText().toString().trim();
             String stringPassword = mPasswordField.getText().toString().trim();
+
+            stringEmail = stringEmail.replaceAll("\\s+", "");
+            stringPassword = stringPassword.replaceAll("\\s+", "");
+
             mLoginButton.setEnabled(!stringEmail.isEmpty() && !stringPassword.isEmpty());
         }
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
+            InputFilter filter = new InputFilter() {
+                public CharSequence filter(CharSequence source, int start, int end,
+                                           Spanned dest, int dstart, int dend) {
+                    for (int i = start; i < end; i++) {
+                        if (Character.isWhitespace(source.charAt(i))) {
+                            return "";
+                        }
+                    }
+                    return null;
+                }
 
+            };
+            mLoginField.setFilters(new InputFilter[] { filter });
+            mPasswordField.setFilters(new InputFilter[] { filter });
         }
 
         @Override
         public void afterTextChanged(Editable s) {
-
         }
     };
 
@@ -62,6 +78,9 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        final MediaPlayer mediaPlayer = MediaPlayer.create(LoginActivity.this, R.raw.mymusic);
+        mediaPlayer.start();
 
         setTitle("Sign In");
 
@@ -71,26 +90,10 @@ public class LoginActivity extends AppCompatActivity {
         mPasswordField = findViewById(R.id.password_field);
         mLoginButton = findViewById(R.id.login_button);
         mRegisterButton = findViewById(R.id.register_button);
-        mEmailText = findViewById(R.id.email_text);
-        mPasswordText = findViewById(R.id.password_text);
 
         mLoginButton.setEnabled(false);
         mLoginField.addTextChangedListener(mTextWatcher);
         mPasswordField.addTextChangedListener(mTextWatcher);
-
-        if(getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayShowCustomEnabled(true);
-            getSupportActionBar().setDisplayShowTitleEnabled(false);
-
-            LayoutInflater inflator = LayoutInflater.from(this);
-            View v = inflator.inflate(R.layout.titleview, null);
-
-            ((TextView) v.findViewById(R.id.title)).setText(this.getTitle());
-            ((TextView) v.findViewById(R.id.title)).setTextSize(20);
-
-
-            this.getSupportActionBar().setCustomView(v);
-        }
 
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -105,6 +108,7 @@ public class LoginActivity extends AppCompatActivity {
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 signIn(mLoginField.getText().toString(), mPasswordField.getText().toString());
             }
         });
