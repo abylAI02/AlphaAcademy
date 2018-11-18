@@ -1,8 +1,9 @@
 package com.example.yelaman.alphaacademy;
 
+import android.content.Intent;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.media.MediaPlayer;
+
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
@@ -67,6 +68,7 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         public void afterTextChanged(Editable s) {
+
         }
     };
 
@@ -74,15 +76,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-
-        builder.setMessage(R.string.dialog_message)
-                .setTitle(R.string.dialog_title);
-
-        final MediaPlayer mediaPlayer = MediaPlayer.create(LoginActivity.this, R.raw.mymusic);
-        mediaPlayer.start();
-
+      
         setTitle("Sign In");
 
         mAuth = FirebaseAuth.getInstance();
@@ -92,9 +86,24 @@ public class LoginActivity extends AppCompatActivity {
         mLoginButton = findViewById(R.id.login_button);
         mRegisterButton = findViewById(R.id.register_button);
 
+
         mLoginButton.setEnabled(false);
         mLoginField.addTextChangedListener(mTextWatcher);
         mPasswordField.addTextChangedListener(mTextWatcher);
+
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowCustomEnabled(true);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+            LayoutInflater inflator = LayoutInflater.from(this);
+            View v = inflator.inflate(R.layout.titleview, null);
+
+            ((TextView) v.findViewById(R.id.title)).setText(this.getTitle());
+            ((TextView) v.findViewById(R.id.title)).setTextSize(20);
+
+
+            this.getSupportActionBar().setCustomView(v);
+        }
 
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -109,7 +118,6 @@ public class LoginActivity extends AppCompatActivity {
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 signIn(mLoginField.getText().toString(), mPasswordField.getText().toString());
             }
         });

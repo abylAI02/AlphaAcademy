@@ -4,7 +4,11 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+
+import android.support.v4.app.Fragment;
+
 import android.support.v7.app.AlertDialog;
+
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -23,29 +27,29 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigation_test:
                     setTitle("Test");
-                    TestFragment testFragment = new TestFragment();
-                    android.support.v4.app.FragmentTransaction testFragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    testFragmentTransaction.replace(R.id.frame, testFragment, "ChatFragment");
-                    testFragmentTransaction.commit();
+                    Fragment fragment = new TestFragment();
+                    loadFragment(fragment);
                     return true;
                 case R.id.navigation_news:
                     setTitle("News");
                     NewsFragment newsFragment = new NewsFragment();
-                    android.support.v4.app.FragmentTransaction newsFragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    newsFragmentTransaction.replace(R.id.frame, newsFragment, "ChatFragment");
-                    newsFragmentTransaction.commit();
+                    loadFragment(newsFragment);
                     return true;
                 case R.id.navigation_user:
                     setTitle("My Account");
                     UserFragment userFragment = new UserFragment();
-                    android.support.v4.app.FragmentTransaction userFragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    userFragmentTransaction.replace(R.id.frame, userFragment, "ChatFragment");
-                    userFragmentTransaction.commit();
+                    loadFragment(userFragment);
                     return true;
             }
             return false;
         }
     };
+
+    private void loadFragment(Fragment fragment) {
+        android.support.v4.app.FragmentTransaction testFragmentTransaction = getSupportFragmentManager().beginTransaction();
+        testFragmentTransaction.replace(R.id.frame, fragment, "ChatFragment");
+        testFragmentTransaction.commit();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,9 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
         setTitle("Test");
         TestFragment testFragment = new TestFragment();
-        android.support.v4.app.FragmentTransaction testFragmentTransaction = getSupportFragmentManager().beginTransaction();
-        testFragmentTransaction.replace(R.id.frame, testFragment, "ChatFragment");
-        testFragmentTransaction.commit();
+        loadFragment(testFragment);
     }
 
     @Override
