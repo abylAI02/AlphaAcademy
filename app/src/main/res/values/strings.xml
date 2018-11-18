@@ -24,5 +24,11 @@
     <string name="family_name_hint">family name</string>
     <string name="didn_t_registered_yet">Didn\'t registered yet?</string>
     <string name="forget_password">Forget password?</string>
+    <string name="dialog_fire_missiles">Самоутвердиться</string>
+    <string name="fire">Yes</string>
+    <string name="cancel">Cancel</string>
+    <string name="dialog_title">Log out</string>
+    <string name="dialog_message">Dialog</string>
+    <string name="ok">OK</string>
 
 </resources>
