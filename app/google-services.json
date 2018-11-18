@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "711434284584",
+    "firebase_url": "https://alphaacademy-c06fc.firebaseio.com",
+    "project_id": "alphaacademy-c06fc",
+    "storage_bucket": "alphaacademy-c06fc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:711434284584:android:4ae3440e0b510451",
+        "android_client_info": {
+          "package_name": "com.example.yelaman.alphaacademy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "711434284584-kl3kr4uh583ctpa0cioe0is8ttqchj8f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.yelaman.alphaacademy",
+            "certificate_hash": "c2c26f3ae2f2eab88deabf81814eea398fdfdbdc"
+          }
+        },
+        {
+          "client_id": "711434284584-9ckbqt4b1iufd1f03o7ta7be20muc0j2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDEXAV4Dkct4gJ4TPnpJT9GbV5l_1-Bs7s"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "711434284584-9ckbqt4b1iufd1f03o7ta7be20muc0j2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
