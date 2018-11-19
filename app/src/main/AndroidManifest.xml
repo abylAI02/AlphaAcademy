@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:logo="@drawable/logo"
         android:name=".FireApp"
         android:allowBackup="true"
         android:icon="@drawable/logo"
