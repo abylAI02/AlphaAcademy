@@ -67,8 +67,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-
         new AlertDialog.Builder(this)
                 .setMessage(R.string.dialog_fire_missiles)
                 .setPositiveButton(R.string.fire, new DialogInterface.OnClickListener() {

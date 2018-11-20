@@ -81,6 +81,10 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
       
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            setActivity();
+        }
+
         setTitle("Sign In");
 
         mAuth = FirebaseAuth.getInstance();
@@ -96,6 +100,10 @@ public class LoginActivity extends AppCompatActivity {
         mLoginButton.setEnabled(false);
         mLoginField.addTextChangedListener(mTextWatcher);
         mPasswordField.addTextChangedListener(mTextWatcher);
+
+        mLoginField.setText("228@grabitel.com");
+        mPasswordField.setText("228228");
+        mLoginField.setEnabled(true);
 
         if(getSupportActionBar() != null) {
             getSupportActionBar().setDisplayShowCustomEnabled(true);

@@ -29,7 +29,7 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/Avatar"
+                    android:id="@+id/avatar"
                     android:layout_width="88dp"
                     android:layout_height="88dp"
                     android:layout_marginBottom="8dp"
@@ -52,9 +52,9 @@
                     android:textColor="@color/black"
                     android:textSize="20dp"
 
-                    app:layout_constraintBottom_toBottomOf="@+id/Avatar"
-                    app:layout_constraintStart_toEndOf="@+id/Avatar"
-                    app:layout_constraintTop_toTopOf="@+id/Avatar"
+                    app:layout_constraintBottom_toBottomOf="@+id/avatar"
+                    app:layout_constraintStart_toEndOf="@+id/avatar"
+                    app:layout_constraintTop_toTopOf="@+id/avatar"
                     app:layout_constraintVertical_bias="0.0" />
 
                 <TextView
