@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.util.Log;
-import android.view.FocusFinder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +15,6 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,92 +27,69 @@ import com.google.firebase.database.ValueEventListener;
  */
 public class UserFragment extends Fragment {
 
-    private static final String TAG = "UserFragment";
-    private CardView accountInformation;
-    private ImageView avatar;
-    private TextView fullName;
-    private TextView emailField;
+  private static final String TAG = UserFragment.class.getSimpleName();
+  private CardView accountInformation;
+  private ImageView avatar;
+  private TextView fullName;
+  private TextView emailField;
 
-    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    private final FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private DatabaseReference ref = database.getReference("alphaacademy-c06fc/users/" + user.getUid());
+  @Override
+  public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                           Bundle savedInstanceState) {
+    // Inflate the layout for this fragment
+    return inflater.inflate(R.layout.fragment_user, container, false);
+  }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_user, container, false);
-    }
+  @Override
+  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    super.onViewCreated(view, savedInstanceState);
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-        accountInformation = view.findViewById(R.id.cardAccount);
+    final FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference ref =
+      database.getReference("users/" + user.getUid());
 
-        emailField = view.findViewById(R.id.textViewEmail);
-        fullName = view.findViewById(R.id.textViewFullName);
-        avatar = view.findViewById(R.id.avatar);
+    accountInformation = view.findViewById(R.id.cardAccount);
 
-        emailField.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
-    /*    ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                User user = dataSnapshot.getValue(User.class);
-                Log.d("UserFragment" , user.toString());
+    emailField = view.findViewById(R.id.textViewEmail);
+    fullName = view.findViewById(R.id.textViewFullName);
 
-        }
+    emailField.setText(user.getEmail());
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+    Log.d(TAG, ref.toString());
 
-            }
-        });*/
+    ref.addListenerForSingleValueEvent(new ValueEventListener() {
+      @Override
+      public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+        Log.d(TAG, "" + dataSnapshot.toString());
 
-        ref.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                User user = dataSnapshot.getValue(User.class);
-                fullName.setText(user.getName() + " " + user.getSurname());
-            }
+        User user = dataSnapshot.getValue(User.class);
 
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+        user.setFullName(user.getName() + " " + user.getSurname());
+        fullName.setText(user.getFullName());
+      }
 
-            }
+      @Override
+      public void onCancelled(@NonNull DatabaseError databaseError) {
+        Log.e(TAG, "" + databaseError.toString());
+      }
+    });
 
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+    accountInformation.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
 
-            }
+        Fragment fragment = new SettingsFragment();
 
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+        getFragmentManager()
+          .beginTransaction()
+          .replace(R.id.frame, fragment)
+          .commit();
+      }
+    });
 
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-
-
-        accountInformation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Fragment fragment = new SettingsFragment();
-
-                getFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.frame, fragment)
-                        .commit();
-            }
-        });
-
-    }
+  }
 
 
 }
