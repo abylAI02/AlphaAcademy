@@ -1,13 +1,9 @@
 package com.example.yelaman.alphaacademy;
 
 import android.content.Intent;
-import android.content.DialogInterface;
-import android.content.Intent;
-
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.InputFilter;
@@ -80,7 +76,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-      
+
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             setActivity();
         }

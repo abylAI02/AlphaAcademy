@@ -6,9 +6,7 @@
     tools:context=".NewsFragment">
 
 
-    <TextView
+    <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="This is news Fragment" />
-
+        android:layout_height="match_parent" />
 </FrameLayout>

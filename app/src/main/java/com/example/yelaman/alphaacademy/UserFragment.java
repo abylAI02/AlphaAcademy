@@ -33,6 +33,8 @@ public class UserFragment extends Fragment {
   private TextView fullName;
   private TextView emailField;
 
+  private UserSingleton userSingleton = UserSingleton.getInstance();
+
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
                            Bundle savedInstanceState) {
@@ -59,22 +61,27 @@ public class UserFragment extends Fragment {
 
     Log.d(TAG, ref.toString());
 
-    ref.addListenerForSingleValueEvent(new ValueEventListener() {
-      @Override
-      public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-        Log.d(TAG, "" + dataSnapshot.toString());
+    //get name from database
+    if (userSingleton.getUser() == null) {
+      ref.addListenerForSingleValueEvent(new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+          Log.d(TAG, "" + dataSnapshot.toString());
 
-        User user = dataSnapshot.getValue(User.class);
+          User user = dataSnapshot.getValue(User.class);
 
-        user.setFullName(user.getName() + " " + user.getSurname());
-        fullName.setText(user.getFullName());
-      }
+          userSingleton.setUser(user);
+          fullName.setText(user.getFullName());
+        }
 
-      @Override
-      public void onCancelled(@NonNull DatabaseError databaseError) {
-        Log.e(TAG, "" + databaseError.toString());
-      }
-    });
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+          Log.e(TAG, "" + databaseError.toString());
+        }
+      });
+    } else {
+      fullName.setText(userSingleton.getUser().getFullName());
+    }
 
     accountInformation.setOnClickListener(new View.OnClickListener() {
       @Override

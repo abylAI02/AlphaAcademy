@@ -2,17 +2,14 @@ package com.example.yelaman.alphaacademy;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-
 import android.support.v4.app.Fragment;
-
 import android.support.v7.app.AlertDialog;
-
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -63,26 +60,56 @@ public class MainActivity extends AppCompatActivity {
         setTitle("Test");
         TestFragment testFragment = new TestFragment();
         loadFragment(testFragment);
+
+
+    }
+
+    public void createDialog() {
+        AlertDialog.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder = new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_Alert);
+        } else {
+            builder = new AlertDialog.Builder(this);
+        }
+
+        builder.setTitle("Log out")
+                .setMessage("Are you sure you want to delete this entry?")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        FirebaseAuth.getInstance().signOut();
+                        startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                    }
+                })
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // do nothing
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
 
     @Override
     public void onBackPressed() {
-        new AlertDialog.Builder(this)
-                .setMessage(R.string.dialog_fire_missiles)
-                .setPositiveButton(R.string.fire, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        FirebaseAuth.getInstance().signOut();
-                        startActivity(new Intent(MainActivity.this , LoginActivity.class));
-                    }
-                })
-                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-
-                    }
-                })
-                .create()
-                .show();
+        createDialog();
     }
 
+
+/*AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setMessage(R.string.dialog_fire_missiles);
+
+        alertDialogBuilder.setPositiveButton(R.string.fire, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            }
+        });
+        alertDialogBuilder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+
+            }
+        });
+
+        alertDialogBuilder.create().show();*/
 }
 

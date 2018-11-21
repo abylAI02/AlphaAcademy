@@ -9,21 +9,9 @@ public class User {
     private String name;
     private String surname;
     private String email;
-    private String fullName;
-
-
-
-
- /*   public User(String name, String surname, String email) {
-        this.name = name;
-        this.surname = surname;
-        this.email = email;
-    }*/
-
 
     public User(String email, String name , String surname) {
         this.email = email;
-        this.fullName = name + " " + surname;
         this.name = name;
         this.surname = surname;
     }
@@ -32,11 +20,7 @@ public class User {
     }
 
     public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+        return this.name + " " + this.surname;
     }
 
     public String getName() {
