@@ -1,12 +1,9 @@
 package com.example.yelaman.alphaacademy;
 
 import android.content.Intent;
-import android.content.DialogInterface;
-import android.content.Intent;
-
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.InputFilter;
@@ -17,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,15 +35,15 @@ public class LoginActivity extends AppCompatActivity {
 
     private Button mLoginButton;
     private Button mRegisterButton;
+    private Button mForgotPasswordButton;
+
+    private ProgressBar progressBar;
 
     private TextWatcher mTextWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             String stringEmail = mLoginField.getText().toString().trim();
             String stringPassword = mPasswordField.getText().toString().trim();
-
-            stringEmail = stringEmail.replaceAll("\\s+", "");
-            stringPassword = stringPassword.replaceAll("\\s+", "");
 
             mLoginButton.setEnabled(!stringEmail.isEmpty() && !stringPassword.isEmpty());
         }
@@ -78,7 +76,11 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-      
+
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            setActivity();
+        }
+
         setTitle("Sign In");
 
         mAuth = FirebaseAuth.getInstance();
@@ -87,18 +89,24 @@ public class LoginActivity extends AppCompatActivity {
         mPasswordField = findViewById(R.id.password_field);
         mLoginButton = findViewById(R.id.login_button);
         mRegisterButton = findViewById(R.id.register_button);
+        mForgotPasswordButton = findViewById(R.id.forget_button);
 
+        progressBar = findViewById(R.id.progressBar);
 
         mLoginButton.setEnabled(false);
         mLoginField.addTextChangedListener(mTextWatcher);
         mPasswordField.addTextChangedListener(mTextWatcher);
 
+        mLoginField.setText("228@grabitel.com");
+        mPasswordField.setText("228228");
+        mLoginField.setEnabled(true);
+
         if(getSupportActionBar() != null) {
             getSupportActionBar().setDisplayShowCustomEnabled(true);
             getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-            LayoutInflater inflator = LayoutInflater.from(this);
-            View v = inflator.inflate(R.layout.titleview, null);
+            LayoutInflater inflater = LayoutInflater.from(this);
+            View v = inflater.inflate(R.layout.titleview, null);
 
             ((TextView) v.findViewById(R.id.title)).setText(this.getTitle());
             ((TextView) v.findViewById(R.id.title)).setTextSize(20);
@@ -120,6 +128,13 @@ public class LoginActivity extends AppCompatActivity {
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mLoginField.setVisibility(View.INVISIBLE);
+                mRegisterButton.setVisibility(View.INVISIBLE);
+                mPasswordField.setVisibility(View.INVISIBLE);
+                mLoginButton.setVisibility(View.INVISIBLE);
+                mForgotPasswordButton.setVisibility(View.INVISIBLE);
+
+                progressBar.setVisibility(ProgressBar.VISIBLE);
                 signIn(mLoginField.getText().toString(), mPasswordField.getText().toString());
             }
         });
@@ -145,14 +160,33 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             setActivity();
                             Log.d(TAG, "signInWithEmail:success");
+                            new CountDownTimer(300, 1000) {
+                                @Override
+                                public void onTick(long millisUntilFinished) {
+
+                                }
+
+                                @Override
+                                public void onFinish() {
+                                    mLoginField.setVisibility(View.VISIBLE);
+                                    mRegisterButton.setVisibility(View.VISIBLE);
+                                    mPasswordField.setVisibility(View.VISIBLE);
+                                    mLoginButton.setVisibility(View.VISIBLE);
+                                    progressBar.setVisibility(ProgressBar.INVISIBLE);
+                                }
+                            }.start();
+
                         } else {
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-
+                            mLoginField.setVisibility(View.VISIBLE);
+                            mRegisterButton.setVisibility(View.VISIBLE);
+                            mPasswordField.setVisibility(View.VISIBLE);
+                            mLoginButton.setVisibility(View.VISIBLE);
+                            mForgotPasswordButton.setVisibility(View.VISIBLE);
+                            progressBar.setVisibility(ProgressBar.INVISIBLE);
                         }
-
-
                     }
                 });
     }
