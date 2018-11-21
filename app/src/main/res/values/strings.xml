@@ -29,5 +29,6 @@
     <string name="dialog_message">Dialog</string>
     <string name="ok">OK</string>
     <string name="confirm_password">confirm password</string>
+    <string name="action_logout">Твоя мама знает что ты гей?</string>
 
 </resources>
