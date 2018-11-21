@@ -6,16 +6,16 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-
 import android.support.v4.app.Fragment;
-
 import android.support.v7.app.AlertDialog;
-
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+
 import android.widget.TextView;
 import android.widget.Toast;
+
+
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -66,24 +66,24 @@ public class MainActivity extends AppCompatActivity {
         setTitle("Test");
         TestFragment testFragment = new TestFragment();
         loadFragment(testFragment);
+
+
     }
 
-    @Override
-    public void onBackPressed() {
-        new AlertDialog.Builder(this)
-                .setMessage(R.string.dialog_fire_missiles)
-                .setPositiveButton(R.string.fire, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
+        builder.setTitle("Log out")
+                .setMessage("Are you sure you want to delete this entry?")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
                         FirebaseAuth.getInstance().signOut();
-                        startActivity(new Intent(MainActivity.this , LoginActivity.class));
+                        startActivity(new Intent(MainActivity.this, LoginActivity.class));
                     }
                 })
-                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // do nothing
                     }
                 })
-                .create()
+                .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
     }
 
@@ -132,5 +132,6 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-}
+
+  
 

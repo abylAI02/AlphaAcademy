@@ -122,7 +122,8 @@ public class RegistrationActivity extends AppCompatActivity {
         public void onComplete(@NonNull Task<AuthResult> task) {
           if (task.isSuccessful()) {
             Log.d(TAG, "createUserWithEmail:success");
-            FirebaseUser user = mAuth.getCurrentUser();
+
+            mUser = mAuth.getCurrentUser();
 
             FirebaseDatabase database = FirebaseDatabase.getInstance();
 
@@ -136,38 +137,6 @@ public class RegistrationActivity extends AppCompatActivity {
               @Override
               public void onComplete(@NonNull Task<Void> task) {
                 Toast.makeText(RegistrationActivity.this, task.isSuccessful() + "", Toast.LENGTH_SHORT).show();
-              }
-            });
-
-            myRef.addChildEventListener(new com.google.firebase.database.ChildEventListener() {
-              @Override
-              public void onChildAdded(@NonNull com.google.firebase.database.DataSnapshot dataSnapshot, @Nullable String s) {
-
-              }
-
-              @Override
-              public void onChildChanged(@NonNull com.google.firebase.database.DataSnapshot dataSnapshot, @Nullable String s) {
-
-                Toast.makeText(
-                  RegistrationActivity.this,
-                  dataSnapshot.getKey() + ":" +
-                    dataSnapshot.getValue(),
-                  Toast.LENGTH_SHORT).show();
-              }
-
-              @Override
-              public void onChildRemoved(@NonNull com.google.firebase.database.DataSnapshot dataSnapshot) {
-
-              }
-
-              @Override
-              public void onChildMoved(@NonNull com.google.firebase.database.DataSnapshot dataSnapshot, @Nullable String s) {
-
-              }
-
-              @Override
-              public void onCancelled(@NonNull DatabaseError databaseError) {
-
               }
             });
 

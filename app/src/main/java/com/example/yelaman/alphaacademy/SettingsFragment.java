@@ -53,7 +53,7 @@ public class SettingsFragment extends Fragment {
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.putExtra("LOGOUT", true);
                 startActivity(intent);
-
+                UserSingleton.getInstance().setUser(null);
                 getActivity().finish();
             }
         });
