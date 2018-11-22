@@ -7,21 +7,18 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-
-import android.widget.TextView;
-import android.widget.Toast;
-
-
+import android.widget.FrameLayout;
 
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
 
-
+    private Fragment fragment;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -29,19 +26,18 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_test:
-                    setTitle("Test");
-                    Fragment fragment = new TestFragment();
+
+                    fragment = new TestFragment();
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_news:
-                    setTitle("News");
-                    NewsFragment newsFragment = new NewsFragment();
-                    loadFragment(newsFragment);
+
+                    fragment = new NewsFragment();
+                    loadFragment(fragment);
                     return true;
                 case R.id.navigation_user:
-                    setTitle("My Account");
-                    UserFragment userFragment = new UserFragment();
-                    loadFragment(userFragment);
+                    fragment = new UserFragment();
+                    loadFragment(fragment);
                     return true;
             }
             return false;
@@ -49,9 +45,11 @@ public class MainActivity extends AppCompatActivity {
     };
 
     private void loadFragment(Fragment fragment) {
-        android.support.v4.app.FragmentTransaction testFragmentTransaction = getSupportFragmentManager().beginTransaction();
-        testFragmentTransaction.replace(R.id.frame, fragment, "ChatFragment");
-        testFragmentTransaction.commit();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.frame, fragment)
+                .addToBackStack(null)
+                .commit();
     }
 
     @Override
@@ -59,32 +57,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        setTitle("Test");
-        TestFragment testFragment = new TestFragment();
-        loadFragment(testFragment);
+        fragment = new TestFragment();
+        loadFragment(fragment);
+
+        getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+            @Override
+            public void onBackStackChanged() {
+            }
+        });
 
 
-    }
-
-        builder.setTitle("Log out")
-                .setMessage("Are you sure you want to delete this entry?")
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        FirebaseAuth.getInstance().signOut();
-                        startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                    }
-                })
-                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // do nothing
-                    }
-                })
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .show();
     }
 
     @Override
@@ -115,7 +100,8 @@ public class MainActivity extends AppCompatActivity {
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             FirebaseAuth.getInstance().signOut();
-                            startActivity(new Intent(MainActivity.this , LoginActivity.class));
+                            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                            finish();
                         }
                     })
                     .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
@@ -131,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+}
 
 
   

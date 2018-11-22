@@ -54,6 +54,7 @@ public class SettingsFragment extends Fragment {
                 intent.putExtra("LOGOUT", true);
                 startActivity(intent);
                 UserSingleton.getInstance().setUser(null);
+                startActivity(new Intent(getContext(), LoginActivity.class));
                 getActivity().finish();
             }
         });
