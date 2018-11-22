@@ -27,76 +27,79 @@ import com.google.firebase.database.ValueEventListener;
  */
 public class UserFragment extends Fragment {
 
-  private static final String TAG = UserFragment.class.getSimpleName();
-  private CardView accountInformation;
-  private ImageView avatar;
-  private TextView fullName;
-  private TextView emailField;
+    private static final String TAG = UserFragment.class.getSimpleName();
+    private CardView accountInformation;
+    private ImageView avatar;
+    private TextView fullName;
+    private TextView emailField;
 
-  private UserSingleton userSingleton = UserSingleton.getInstance();
+    private UserSingleton userSingleton = UserSingleton.getInstance();
 
-  @Override
-  public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                           Bundle savedInstanceState) {
-    // Inflate the layout for this fragment
-    return inflater.inflate(R.layout.fragment_user, container, false);
-  }
-
-  @Override
-  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-    super.onViewCreated(view, savedInstanceState);
-
-    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-    final FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference ref =
-      database.getReference("users/" + user.getUid());
-
-    accountInformation = view.findViewById(R.id.cardAccount);
-
-    emailField = view.findViewById(R.id.textViewEmail);
-    fullName = view.findViewById(R.id.textViewFullName);
-
-    emailField.setText(user.getEmail());
-
-    Log.d(TAG, ref.toString());
-
-    //get name from database
-    if (userSingleton.getUser() == null) {
-      ref.addListenerForSingleValueEvent(new ValueEventListener() {
-        @Override
-        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-          Log.d(TAG, "" + dataSnapshot.toString());
-
-          User user = dataSnapshot.getValue(User.class);
-
-          userSingleton.setUser(user);
-          fullName.setText(user.getFullName());
-        }
-
-        @Override
-        public void onCancelled(@NonNull DatabaseError databaseError) {
-          Log.e(TAG, "" + databaseError.toString());
-        }
-      });
-    } else {
-      fullName.setText(userSingleton.getUser().getFullName());
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_user, container, false);
     }
 
-    accountInformation.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-        Fragment fragment = new SettingsFragment();
+        getActivity().setTitle("My Account");
 
-        getFragmentManager()
-          .beginTransaction()
-          .replace(R.id.frame, fragment)
-          .commit();
-      }
-    });
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-  }
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref =
+                database.getReference("users/" + user.getUid());
+
+        accountInformation = view.findViewById(R.id.cardAccount);
+
+        emailField = view.findViewById(R.id.textViewEmail);
+        fullName = view.findViewById(R.id.textViewFullName);
+
+        emailField.setText(user.getEmail());
+
+        Log.d(TAG, ref.toString());
+
+        //get name from database
+        if (userSingleton.getUser() == null) {
+            ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    Log.d(TAG, "" + dataSnapshot.toString());
+
+                    User user = dataSnapshot.getValue(User.class);
+
+                    userSingleton.setUser(user);
+                    fullName.setText(user.getFullName());
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Log.e(TAG, "" + databaseError.toString());
+                }
+            });
+        } else {
+            fullName.setText(userSingleton.getUser().getFullName());
+        }
+
+        accountInformation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Fragment fragment = new SettingsFragment();
+
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.frame, fragment)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+
+    }
 
 
 }
