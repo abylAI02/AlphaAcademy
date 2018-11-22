@@ -149,6 +149,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public void setActivity() {
         startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        finish();
     }
 
 
@@ -189,6 +190,10 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+    public void finishLogIn()
+    {
+        finish();
     }
 
 }
