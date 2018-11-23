@@ -1,6 +1,7 @@
 package com.example.yelaman.alphaacademy;
 
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,10 +10,27 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.exoplayer2.DefaultRenderersFactory;
+import com.google.android.exoplayer2.ExoPlayer;
+import com.google.android.exoplayer2.ExoPlayerFactory;
+import com.google.android.exoplayer2.Player;
+import com.google.android.exoplayer2.SimpleExoPlayer;
+import com.google.android.exoplayer2.source.ExtractorMediaSource;
+import com.google.android.exoplayer2.source.MediaSource;
+import com.google.android.exoplayer2.source.dash.manifest.UrlTemplate;
+import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
+import com.google.android.exoplayer2.ui.PlayerView;
+import com.google.android.exoplayer2.upstream.DataSource;
+import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
+import com.google.android.exoplayer2.util.Util;
+
+import java.net.URI;
 
 
 public class NewsFragment extends Fragment {
 
+    private PlayerView playerView;
+    private SimpleExoPlayer player;
 
     public NewsFragment() {
         // Required empty public constructor
@@ -31,5 +49,43 @@ public class NewsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         getActivity().setTitle("News");
 
+        playerView = view.findViewById(R.id.playerView);
+
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        player = ExoPlayerFactory.newSimpleInstance(getContext(), new DefaultTrackSelector());
+
+        playerView.setPlayer(player);
+
+        DefaultDataSourceFactory dataSourceFactory = new DefaultDataSourceFactory(getContext(),
+                Util.getUserAgent(getContext(),"AlphaAcademy"));
+
+        ExtractorMediaSource mediaSource = new ExtractorMediaSource.Factory(dataSourceFactory)
+                .createMediaSource(Uri.parse("https://www.youtube.com/watch?v=8KFBUY4MB44"));
+
+        player.prepare(mediaSource);
+        player.setPlayWhenReady(true);
+    }
+
+
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        playerView.setPlayer(null);
+        player.release();
+
+        player = null;
+    }
+
+    public void preparePlayer()
+    {
+
+    }
+
 }
