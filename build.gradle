@@ -20,6 +20,7 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven { url 'https://www.jitpack.io' }//on site https://medium.com/@msnthrpc_drnkn_/how-to-handle-bottom-navigation-perfectly-with-back-pressed-a387c9315582
     }
 }
 
