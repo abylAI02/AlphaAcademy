@@ -10,21 +10,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.exoplayer2.DefaultRenderersFactory;
-import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.ExoPlayerFactory;
-import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
-import com.google.android.exoplayer2.source.MediaSource;
-import com.google.android.exoplayer2.source.dash.manifest.UrlTemplate;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.ui.PlayerView;
-import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 
-import java.net.URI;
+import static android.provider.CalendarContract.CalendarCache.URI;
 
 
 public class NewsFragment extends Fragment {
@@ -65,7 +59,7 @@ public class NewsFragment extends Fragment {
                 Util.getUserAgent(getContext(),"AlphaAcademy"));
 
         ExtractorMediaSource mediaSource = new ExtractorMediaSource.Factory(dataSourceFactory)
-                .createMediaSource(Uri.parse("https://www.youtube.com/watch?v=8KFBUY4MB44"));
+                .createMediaSource(URI);
 
         player.prepare(mediaSource);
         player.setPlayWhenReady(true);
@@ -79,13 +73,7 @@ public class NewsFragment extends Fragment {
 
         playerView.setPlayer(null);
         player.release();
-
         player = null;
-    }
-
-    public void preparePlayer()
-    {
-
     }
 
 }

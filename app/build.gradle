@@ -27,6 +27,7 @@ android {
     compileOptions {
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
 }
 
 dependencies {
@@ -48,6 +49,8 @@ dependencies {
     implementation 'com.google.android.exoplayer:exoplayer:2.9.1'
 
     implementation 'com.google.firebase:firebase-database:16.0.5'
+
+    implementation 'com.github.msnthrpc-drnkn-lnr:memorizing-pager:2.0.0'
 
 
 }
