@@ -2,6 +2,7 @@ package com.example.yelaman.alphaacademy;
 
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -21,6 +22,9 @@ public class SettingsFragment extends Fragment {
 
     private FirebaseAuth mAuth;
     private CardView logOut;
+    private CardView webSite;
+    private CardView instagram;
+    private CardView facebook;
 
     public SettingsFragment() {
         // Required empty public constructor
@@ -42,6 +46,29 @@ public class SettingsFragment extends Fragment {
 
         logOut = view.findViewById(R.id.logOut);
         mAuth = FirebaseAuth.getInstance();
+        webSite = view.findViewById(R.id.WebSiteCard);
+        facebook = view.findViewById(R.id.FacebookCard);
+        instagram = view.findViewById(R.id.InstagramCard);
+
+        facebook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/alpha.academy.almaty/")));
+            }
+        });
+        instagram.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.instagram.com/alpha_academy_almaty/")));
+            }
+        });
+
+        webSite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://alpha-academy.org")));
+            }
+        });
 
         logOut.setOnClickListener(new View.OnClickListener() {
             @Override
