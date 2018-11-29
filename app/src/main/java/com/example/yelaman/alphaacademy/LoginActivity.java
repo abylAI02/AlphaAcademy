@@ -97,8 +97,8 @@ public class LoginActivity extends AppCompatActivity {
         mLoginField.addTextChangedListener(mTextWatcher);
         mPasswordField.addTextChangedListener(mTextWatcher);
 
-        mLoginField.setText("228@grabitel.com");
-        mPasswordField.setText("228228");
+        mLoginField.setText("111@gmail.com");
+        mPasswordField.setText("111111");
         mLoginField.setEnabled(true);
 
         if(getSupportActionBar() != null) {
