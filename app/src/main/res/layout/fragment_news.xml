@@ -6,12 +6,124 @@
     android:layout_height="match_parent"
     tools:context=".NewsFragment">
 
+
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <android.support.v7.widget.CardView
-            android:id="@+id/cardView2"
+            android:id="@+id/cardView43"
+            android:layout_width="match_parent"
+            android:layout_height="141dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:clickable="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardView42">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="147dp"
+                    android:layout_height="114dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/montserrat"
+                    android:gravity="center"
+                    android:text="Greeting - Good morning. Good bye. "
+                    android:textSize="15dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView423246"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/imageView423246"
+                    app:layout_constraintTop_toTopOf="@+id/imageView423246" />
+
+                <ImageView
+                    android:id="@+id/imageView423246"
+                    android:layout_width="184dp"
+                    android:layout_height="120dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/thumblnail3"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/imageView45645"
+                    android:layout_width="31dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/chevron_right"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+            </android.support.constraint.ConstraintLayout>
+        </android.support.v7.widget.CardView>
+
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardView42"
+            android:layout_width="match_parent"
+            android:layout_height="141dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:clickable="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardView33">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="147dp"
+                    android:layout_height="114dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/montserrat"
+                    android:gravity="center"
+                    android:text="Learn English Numbers 1-100"
+                    android:textSize="15dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView423246"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/imageView423246"
+                    app:layout_constraintTop_toTopOf="@+id/imageView423246" />
+
+                <ImageView
+                    android:id="@+id/imageView423246"
+                    android:layout_width="184dp"
+                    android:layout_height="120dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/thumblnail2"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/imageView45645"
+                    android:layout_width="31dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/chevron_right"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+            </android.support.constraint.ConstraintLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardView33"
             android:layout_width="match_parent"
             android:layout_height="141dp"
             android:layout_marginEnd="8dp"
@@ -27,33 +139,34 @@
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="17dp"
+                    android:layout_width="147dp"
+                    android:layout_height="114dp"
+                    android:layout_marginEnd="8dp"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="8dp"
                     android:fontFamily="@font/montserrat"
-                    android:text="YouTube Video"
+                    android:gravity="center"
+                    android:text="The Alphabet Song For Rockers"
                     android:textSize="15dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView423246"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toEndOf="@+id/imageView2"
-                    app:layout_constraintTop_toTopOf="@+id/imageView2" />
+                    app:layout_constraintStart_toEndOf="@+id/imageView423246"
+                    app:layout_constraintTop_toTopOf="@+id/imageView423246" />
 
                 <ImageView
-                    android:id="@+id/imageView2"
+                    android:id="@+id/imageView423246"
                     android:layout_width="184dp"
                     android:layout_height="120dp"
                     android:layout_marginBottom="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    android:src="@drawable/youtube"
+                    android:src="@drawable/thumblnail"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
-                    android:id="@+id/imageView4"
+                    android:id="@+id/imageView45645"
                     android:layout_width="31dp"
                     android:layout_height="32dp"
                     android:src="@drawable/chevron_right"
@@ -66,13 +179,16 @@
         <ImageView
             android:id="@+id/imageView3"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="384dp"
             android:layout_marginTop="8dp"
             android:src="@drawable/aa_background"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.51"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+
     </android.support.constraint.ConstraintLayout>
+
 </FrameLayout>

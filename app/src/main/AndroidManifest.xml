@@ -34,7 +34,6 @@
             android:name=".SplashActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".NewsFragment" />
-        <activity android:name=".VideoActivity"></activity>
     </application>
 
 </manifest>
