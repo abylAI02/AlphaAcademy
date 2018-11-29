@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
 
+    
     private Fragment fragment;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -96,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                 builder = new AlertDialog.Builder(this);
             }
             builder.setTitle(R.string.action_logout)
-                    .setMessage("Are you sure you want to be gay? If you cancel you gay")
+                    .setMessage("Are you sure you want to exit?")
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             FirebaseAuth.getInstance().signOut();
