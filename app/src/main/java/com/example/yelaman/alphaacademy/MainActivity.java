@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        BottomNavigationView navigation = findViewById(R.id.navigation);
+        final BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         fragment = new TestFragment();
@@ -71,7 +71,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -102,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int which) {
                             FirebaseAuth.getInstance().signOut();
                             startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                            UserSingleton.getInstance().setUser(null);
                             finish();
                         }
                     })
