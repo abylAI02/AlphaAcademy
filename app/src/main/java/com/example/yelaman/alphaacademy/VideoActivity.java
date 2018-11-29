@@ -1,6 +1,5 @@
 package com.example.yelaman.alphaacademy;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.google.android.youtube.player.YouTubeBaseActivity;
@@ -12,6 +11,7 @@ public class VideoActivity extends YouTubeBaseActivity {
 
     private YouTubePlayerView player;
     private YouTubePlayer.OnInitializedListener mOnInitializedListener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,7 +20,7 @@ public class VideoActivity extends YouTubeBaseActivity {
         mOnInitializedListener = new YouTubePlayer.OnInitializedListener() {
             @Override
             public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
-                youTubePlayer.loadVideo("W4hTJybfU7s");
+                youTubePlayer.loadVideo("JZgJ_8-Qn7U");
             }
 
             @Override
@@ -29,5 +29,11 @@ public class VideoActivity extends YouTubeBaseActivity {
             }
         };
         player.initialize(YouTubeAPI.getApiKey(), mOnInitializedListener);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

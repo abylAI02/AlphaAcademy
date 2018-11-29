@@ -46,4 +46,6 @@ public class NewsFragment extends Fragment{
             }
         });
     }
+
 }
+
