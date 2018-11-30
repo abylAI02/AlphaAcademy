@@ -48,42 +48,17 @@ public class UserFragment extends Fragment {
 
         getActivity().setTitle("My Account");
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref =
-                database.getReference("users/" + user.getUid());
 
         accountInformation = view.findViewById(R.id.cardAccount);
 
         emailField = view.findViewById(R.id.textViewEmail);
         fullName = view.findViewById(R.id.textViewFullName);
 
-        emailField.setText(user.getEmail());
+        emailField.setText(userSingleton.getUser().getEmail());
+        fullName.setText(userSingleton.getUser().getFullName());
 
-        Log.d(TAG, ref.toString());
 
-        //get name from database
-        if (userSingleton.getUser() == null) {
-            ref.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    Log.d(TAG, "" + dataSnapshot.toString());
-
-                    User user = dataSnapshot.getValue(User.class);
-
-                    userSingleton.setUser(user);
-                    fullName.setText(user.getFullName());
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    Log.e(TAG, "" + databaseError.toString());
-                }
-            });
-        } else {
-            fullName.setText(userSingleton.getUser().getFullName());
-        }
 
         accountInformation.setOnClickListener(new View.OnClickListener() {
             @Override
