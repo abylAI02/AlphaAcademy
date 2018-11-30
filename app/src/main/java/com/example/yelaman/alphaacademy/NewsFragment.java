@@ -2,6 +2,7 @@ package com.example.yelaman.alphaacademy;
 
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,19 +11,14 @@ import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
-
-import com.google.android.exoplayer2.SimpleExoPlayer;
-import com.google.android.exoplayer2.ui.PlayerView;
-import com.google.android.youtube.player.YouTubeBaseActivity;
-import com.google.android.youtube.player.YouTubeInitializationResult;
-import com.google.android.youtube.player.YouTubePlayer;
-import com.google.android.youtube.player.YouTubePlayerView;
 
 
-public class NewsFragment extends Fragment{
+public class NewsFragment extends Fragment {
 
     private CardView mCardView;
+    private CardView mCardView2;
+    private CardView mCardView3;
+
     public NewsFragment() {
         // Required empty public constructor
     }
@@ -38,12 +34,30 @@ public class NewsFragment extends Fragment{
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mCardView= view.findViewById(R.id.cardView2);
+        getActivity().setTitle("News");
+        mCardView = view.findViewById(R.id.cardView33);
+        mCardView2 = view.findViewById(R.id.cardView42);
+        mCardView3 = view.findViewById(R.id.cardView43);
         mCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getContext(),VideoActivity.class));
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=S_SGux0CWxU&feature=youtu.be")));
+            }
+        });
+
+        mCardView2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=D4eJ5kg28nU&feature=youtu.be")));
+            }
+        });
+        mCardView3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=7xVgQpt4ROw")));
             }
         });
     }
+
 }
+
