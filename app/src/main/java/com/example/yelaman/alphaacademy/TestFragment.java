@@ -23,13 +23,12 @@ public class TestFragment extends Fragment {
 
     private static int rnd;
     private static int[] previous = new int[4];
-    private static int money_counter = 1000;
+    private static int money_counter = 0;
 
     private Button[] buttons = new Button[4];
     private TextView question;
     private TextView money;
-    private TextView nick;
-    private TextView textTimer;
+
 
     private Question[] mQuestionBank = new Question[] {
             new Question(R.string.question_australia, 0),
@@ -40,7 +39,6 @@ public class TestFragment extends Fragment {
             new Question(R.string.question_asia, 0),
     };
     private int mCurrentIndex = 0;
-    private int mCurrentPeriod = 30;
 
 
     public TestFragment() {
@@ -61,24 +59,6 @@ public class TestFragment extends Fragment {
         getActivity().setTitle("Test");
 
         money = view.findViewById(R.id.money);
-        nick = view.findViewById(R.id.nick);
-
-        textTimer = view.findViewById(R.id.timer);
-
-        new CountDownTimer( 30000, 1000) {
-
-            @Override
-            public void onTick(long millisUntilFinished) {
-                textTimer.setText(String.valueOf(mCurrentPeriod--));
-            }
-
-            @Override
-            public void onFinish() {
-                Toast.makeText(getContext(), R.string.incorrect, Toast.LENGTH_LONG).show();
-                //final Intent intent1 = new Intent(MainActivity.this, ScoreActivity.class);
-                //startActivity(intent1);
-            }
-        }.start();
 
         //String name = intent.getStringExtra("nickname");
         //nick.setText(name);
@@ -271,7 +251,7 @@ public class TestFragment extends Fragment {
 
         if (rightAnswer == answerIsRight) {
             messageResId = R.string.correct;
-            money_counter*=2;
+            money_counter+=1;
             money.setText("" + money_counter);
         }
 
