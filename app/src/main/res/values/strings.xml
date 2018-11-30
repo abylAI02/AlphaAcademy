@@ -31,4 +31,49 @@
     <string name="confirm_password">confirm password</string>
     <string name="action_logout">Log out</string>
 
+    <string name="correct">Вы выиграли</string>
+    <string name="incorrect">Вы проиграли</string>
+    <string name="true_answer">true</string>
+    <string name="false_answer">False</string>
+    <string name="question_australia">Столица Австаралии </string>
+    <string name="question_oceans">Самый большой океан</string>
+    <string name="question_mideast">Какие моря соединяет Суэцкий канал</string>
+    <string name="question_africa">Откуда начинается река Нил</string>
+    <string name="question_americas">Самая длиная река в Америке</string>
+    <string name="question_asia">Самое глубокое озеро в мире</string>
+
+    <string name="r_answer_australia">Канберра</string>
+    <string name="answer_australia1">Сидней</string>
+    <string name="answer_australia2">Дарвин</string>
+    <string name="answer_australia3">Веллингтон</string>
+
+    <string name="r_answer_oceans">Тихий океан</string>
+    <string name="answer_oceans1">Индийский океан</string>
+    <string name="answer_oceans2">Атлантический океан</string>
+    <string name="answer_oceans3">Северно-ледовитый океан</string>
+
+    <string name="r_answer_mideast">Средиземное и Красное море</string>
+    <string name="answer_mideast1">Черное море и Красное море</string>
+    <string name="answer_mideast2">Черное море и Средиземное море</string>
+    <string name="answer_mideast3">Каспийское и Аральское море</string>
+
+    <string name="r_answer_africa">Египет</string>
+    <string name="answer_africa1">Тунис</string>
+    <string name="answer_africa2">Марокко</string>
+    <string name="answer_africa3">ЮАР</string>
+
+    <string name="r_answer_americas">Амазонка</string>
+    <string name="answer_americas1">Нил</string>
+    <string name="answer_americas2">Волга</string>
+    <string name="answer_americas3">Енисей</string>
+
+    <string name="r_answer_asia">Байкал</string>
+    <string name="answer_asia1">Балхаш</string>
+    <string name="answer_asia2">Каспийское море</string>
+    <string name="answer_asia3">Аральской море</string>
+    <string name="temp">temp</string>
+    <string name="_0">0</string>
+    <string name="records">records</string>
+    <string name="enter_your_name">Enter your name</string>
+
 </resources>
