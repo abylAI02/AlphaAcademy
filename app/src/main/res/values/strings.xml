@@ -31,4 +31,72 @@
     <string name="confirm_password">confirm password</string>
     <string name="action_logout">Log out</string>
 
+    <string name="correct">Correct</string>
+    <string name="incorrect">InCorrect</string>
+    <string name="true_answer">true</string>
+    <string name="false_answer">False</string>
+
+    <string name="question_beginner1">What’s ______ job? She is a hotel manager.</string>
+    <string name="question_beginner2">Anita usually likes coffee, but now she ______ tea.</string>
+    <string name="question_beginner3">Is ______ your pen over there?</string>
+    <string name="question_beginner4">______? — I am a pilot.</string>
+    <string name="question_beginner5">There are ______ magazines on the shelf.</string>
+    <string name="question_beginner6">The shoes are ______ fashionable!.</string>
+    <string name="question_beginner7">The man is old and he can not ______ well.</string>
+    <string name="question_beginner8">Who can tell me where ______?</string>
+    <string name="question_beginner9">He could open the lock ______.</string>
+    <string name="question_beginner10">No news ______ good news.</string>
+
+    <string name="r_answer_beginner1">her</string>
+    <string name="answer_beginner1_1">his</string>
+    <string name="answer_beginner1_2">your</string>
+    <string name="answer_beginner1_3">my</string>
+
+    <string name="r_answer_beginner2">is drinking</string>
+    <string name="answer_beginner2_1">drinks</string>
+    <string name="answer_beginner2_2">drink</string>
+    <string name="answer_beginner2_3">drank</string>
+
+    <string name="r_answer_beginner3">this</string>
+    <string name="answer_beginner3_1">the</string>
+    <string name="answer_beginner3_2">these</string>
+    <string name="answer_beginner3_3">those</string>
+
+    <string name="r_answer_beginner4">What do you do?</string>
+    <string name="answer_beginner4_1">How are you?</string>
+    <string name="answer_beginner4_2">How do you do?</string>
+    <string name="answer_beginner4_3">What are you doing?</string>
+
+    <string name="r_answer_beginner5">some</string>
+    <string name="answer_beginner5_1">a</string>
+    <string name="answer_beginner5_2">any</string>
+    <string name="answer_beginner5_3">the</string>
+
+    <string name="r_answer_beginner6">so</string>
+    <string name="answer_beginner6_1">such</string>
+    <string name="answer_beginner6_2">the</string>
+    <string name="answer_beginner6_3">this</string>
+
+    <string name="r_answer_beginner7">hear</string>
+    <string name="answer_beginner7_1">to hear</string>
+    <string name="answer_beginner7_2">heard</string>
+    <string name="answer_beginner7_3">listen</string>
+
+    <string name="r_answer_beginner8">is my key</string>
+    <string name="answer_beginner8_1">my key is</string>
+    <string name="answer_beginner8_2">key is maai</string>
+    <string name="answer_beginner8_3">my is key</string>
+
+    <string name="r_answer_beginner9">easily</string>
+    <string name="answer_beginner9_1">easy</string>
+    <string name="answer_beginner9_2">most easy</string>
+    <string name="answer_beginner9_3">easiest</string>
+
+    <string name="r_answer_beginner10">are</string>
+    <string name="answer_beginner10_1">—</string>
+    <string name="answer_beginner10_2">is</string>
+    <string name="answer_beginner10_3">am</string>
+    <string name="security">For security reasons we will now send an activation code to your email. It is free.</string>
+    <string name="about_english">The modern world is becoming smaller all the time. Every day distances between different countries seem less. For this reason it\'s becoming more and more important to know different languages, especially English.</string>
+
 </resources>
