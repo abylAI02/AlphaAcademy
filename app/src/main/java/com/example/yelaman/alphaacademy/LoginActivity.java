@@ -97,10 +97,6 @@ public class LoginActivity extends AppCompatActivity {
         mLoginField.addTextChangedListener(mTextWatcher);
         mPasswordField.addTextChangedListener(mTextWatcher);
 
-        mLoginField.setText("111@gmail.com");
-        mPasswordField.setText("111111");
-        mLoginField.setEnabled(true);
-
         if(getSupportActionBar() != null) {
             getSupportActionBar().setDisplayShowCustomEnabled(true);
             getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -116,26 +112,20 @@ public class LoginActivity extends AppCompatActivity {
         }
 
 
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
+     /*   mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if (firebaseAuth.getCurrentUser() == null) {
 
                 }
             }
-        };
+        };*/
 
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mLoginField.setVisibility(View.INVISIBLE);
-                mRegisterButton.setVisibility(View.INVISIBLE);
-                mPasswordField.setVisibility(View.INVISIBLE);
-                mLoginButton.setVisibility(View.INVISIBLE);
-                mForgotPasswordButton.setVisibility(View.INVISIBLE);
 
-                progressBar.setVisibility(ProgressBar.VISIBLE);
-                signIn(mLoginField.getText().toString(), mPasswordField.getText().toString());
+                    signIn(mLoginField.getText().toString(), mPasswordField.getText().toString());
             }
         });
 
@@ -159,24 +149,38 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            setActivity();
-                            Log.d(TAG, "signInWithEmail:success");
-                            new CountDownTimer(300, 1000) {
-                                @Override
-                                public void onTick(long millisUntilFinished) {
+                            if(mAuth.getCurrentUser().isEmailVerified())
+                            {
+                                mLoginField.setVisibility(View.INVISIBLE);
+                                mRegisterButton.setVisibility(View.INVISIBLE);
+                                mPasswordField.setVisibility(View.INVISIBLE);
+                                mLoginButton.setVisibility(View.INVISIBLE);
+                                mForgotPasswordButton.setVisibility(View.INVISIBLE);
 
-                                }
+                                progressBar.setVisibility(ProgressBar.VISIBLE);
 
-                                @Override
-                                public void onFinish() {
-                                    mLoginField.setVisibility(View.VISIBLE);
-                                    mRegisterButton.setVisibility(View.VISIBLE);
-                                    mPasswordField.setVisibility(View.VISIBLE);
-                                    mLoginButton.setVisibility(View.VISIBLE);
-                                    progressBar.setVisibility(ProgressBar.INVISIBLE);
-                                }
-                            }.start();
+                                setActivity();
+                                Log.d(TAG, "signInWithEmail:success");
+                                new CountDownTimer(300, 1000) {
+                                    @Override
+                                    public void onTick(long millisUntilFinished) {
 
+                                    }
+
+                                    @Override
+                                    public void onFinish() {
+                                        mLoginField.setVisibility(View.VISIBLE);
+                                        mRegisterButton.setVisibility(View.VISIBLE);
+                                        mPasswordField.setVisibility(View.VISIBLE);
+                                        mLoginButton.setVisibility(View.VISIBLE);
+                                        progressBar.setVisibility(ProgressBar.INVISIBLE);
+                                    }
+                                }.start();
+                            }
+                            else
+                            {
+                             Toast.makeText(LoginActivity.this, "Email is not verified" , Toast.LENGTH_SHORT).show();
+                            }
                         } else {
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
@@ -190,10 +194,6 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     }
                 });
-    }
-    public void finishLogIn()
-    {
-        finish();
     }
 
 }

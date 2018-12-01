@@ -1,12 +1,10 @@
 package com.example.yelaman.alphaacademy;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,13 +20,11 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 
-public class RegistrationActivity extends AppCompatActivity {
+public class RegistrationActivity extends AppCompatActivity  {
 
     private static final String TAG = "TAG";
 
     private FirebaseAuth mAuth;
-    private FirebaseUser mUser;
-    private FirebaseAuth.AuthStateListener mAuthListener;
 
     private EditText mNameField;
     private EditText mSurnameField;
@@ -64,37 +60,14 @@ public class RegistrationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
-        mAuth = FirebaseAuth.getInstance();
-
         setTitle("Sign Up");
 
-        mLoginField = findViewById(R.id.login_field);
-        mPasswordField = findViewById(R.id.password_field);
-        mNameField = findViewById(R.id.first_name_field);
-        mSurnameField = findViewById(R.id.family_name_field);
-        mConfirm_password = findViewById(R.id.confirm_password_field);
-
-        mRegisterButton = findViewById(R.id.register_button);
+        init();
+        mAuth = FirebaseAuth.getInstance();
 
         mRegisterButton.setEnabled(false);
 
-        mLoginField.addTextChangedListener(mTextWatcher);
-        mPasswordField.addTextChangedListener(mTextWatcher);
-        mNameField.addTextChangedListener(mTextWatcher);
-        mSurnameField.addTextChangedListener(mTextWatcher);
-        mConfirm_password.addTextChangedListener(mTextWatcher);
-
-        mAuth = FirebaseAuth.getInstance();
-        mUser = mAuth.getCurrentUser();
-
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                if (firebaseAuth.getCurrentUser() == null) {
-
-                }
-            }
-        };
+        initWatchers();
 
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,8 +81,32 @@ public class RegistrationActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser user = mAuth.getCurrentUser();
+    }
 
-    private void createAccount(final String email, String password) {
+    //initialize all views on xml file
+    public void init() {
+        mLoginField = findViewById(R.id.login_field);
+        mPasswordField = findViewById(R.id.password_field);
+        mNameField = findViewById(R.id.first_name_field);
+        mSurnameField = findViewById(R.id.family_name_field);
+        mConfirm_password = findViewById(R.id.confirm_password_field);
+        mRegisterButton = findViewById(R.id.register_button);
+
+    }
+
+    public void initWatchers() {
+        mLoginField.addTextChangedListener(mTextWatcher);
+        mPasswordField.addTextChangedListener(mTextWatcher);
+        mNameField.addTextChangedListener(mTextWatcher);
+        mSurnameField.addTextChangedListener(mTextWatcher);
+        mConfirm_password.addTextChangedListener(mTextWatcher);
+    }
+
+    public void createAccount(final String email, String password) {
 
         final String name = String.valueOf(this.mNameField.getText());
         final String surname = String.valueOf(this.mSurnameField.getText());
@@ -119,29 +116,23 @@ public class RegistrationActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Log.d(TAG, "createUserWithEmail:success");
-
-                            mUser = mAuth.getCurrentUser();
-
+                            final FirebaseUser user = mAuth.getCurrentUser();
                             FirebaseDatabase database = FirebaseDatabase.getInstance();
+                            user.sendEmailVerification();
+                            DatabaseReference reference = database.getReference("users/" + user.getUid());
 
-                            DatabaseReference myRef = database.getReference("users/" + mUser.getUid());
-
-                            myRef.updateChildren(new HashMap<String, Object>() {{
+                            reference.updateChildren(new HashMap<String, Object>() {{
                                 put("email", email);
                                 put("name", name);
                                 put("surname", surname);
                             }}).addOnCompleteListener(RegistrationActivity.this, new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
-                                    Toast.makeText(RegistrationActivity.this, task.isSuccessful() + "", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(RegistrationActivity.this, "Authentication successful ", Toast.LENGTH_SHORT).show();
+                                    finish();
                                 }
                             });
-
-                            startActivity(new Intent(RegistrationActivity.this, MainActivity.class));
-                            finish();
                         } else {
-                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
                             Toast.makeText(RegistrationActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         }
@@ -150,8 +141,19 @@ public class RegistrationActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public void onBackPressed() {
-        finish();
-    }
+   /* public void sendEmailVerification() {
+        final FirebaseUser user = mAuth.getCurrentUser();
+        user.sendEmailVerification()
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(RegistrationActivity.this, "Verification email sent to " + user.getEmail(), Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(RegistrationActivity.this, "Failed to send verification email.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }*/
+
 }
